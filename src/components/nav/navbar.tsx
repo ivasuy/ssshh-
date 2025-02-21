@@ -7,9 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Btn03 from "../ui/btn03";
 import { useEffect, useState } from "react";
 import BlinkingCursor from "../ui/blinking-cursor";
+import { UserType } from "@/types/types";
 
 interface NavbarProps {
-  user: any;
+  user: UserType;
   location: string;
   setLocation: (value: string) => void;
   onShareClick: () => void;

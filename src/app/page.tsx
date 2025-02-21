@@ -18,12 +18,14 @@ export default function Home() {
       <div className="fixed inset-0 z-0">
         <FloatingPaths />
       </div>
-      <Navbar
-        user={user}
-        location={location}
-        setLocation={setLocation}
-        onShareClick={() => setIsShareDialogOpen(true)}
-      />
+      {user && (
+        <Navbar
+          user={user}
+          location={location}
+          setLocation={setLocation}
+          onShareClick={() => setIsShareDialogOpen(true)}
+        />
+      )}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

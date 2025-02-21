@@ -24,11 +24,7 @@ export async function GET() {
       },
     });
   } catch (error) {
-    console.error("Detailed error in getUserInfo:", {
-      message: (error as any).message,
-      response: (error as any).response?.data,
-      status: (error as any).response?.status,
-    });
+    console.error("error in getUserInfo");
 
     if (axios.isAxiosError(error)) {
       if (error.code === "ECONNABORTED") {
