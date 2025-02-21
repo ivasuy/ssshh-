@@ -7,7 +7,8 @@ const SoundEffect = () => {
 
   useEffect(() => {
     audioContextRef.current = new (window.AudioContext ||
-      (window as any).webkitAudioContext)();
+      (window as unknown as { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext)();
 
     const playSound = () => {
       if (audioContextRef.current) {

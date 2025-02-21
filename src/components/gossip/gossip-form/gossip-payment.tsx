@@ -3,16 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/UserContext";
-import { db } from "@/lib/firebase";
-import {
-  addDoc,
-  setDoc,
-  doc,
-  getDoc,
-  updateDoc,
-  collection,
-} from "firebase/firestore";
-import { postGossipWithoutPayment, uploadToCloudinary } from "@/service/api";
+import { postGossipWithoutPayment } from "@/service/api";
 
 interface GossipPaymentProps {
   title: string;
@@ -38,7 +29,31 @@ export function GossipPayment({
     if (!user) return;
     setIsProcessing(true);
     try {
-      const gossipDetails = { title, content, isSensitive, visibility };
+      const gossipDetails = {
+        id: "",
+        title,
+        content,
+        isSensitive,
+        visibility,
+        imageUrl: "",
+        createdAt: new Date(),
+        expireAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        paymentId: "",
+        userId: "",
+        username: "",
+        location: {
+          city: "",
+          state: "",
+          country: "",
+        },
+        reactions: {
+          "😂": [],
+          "🔥": [],
+          "🤯": [],
+          "💦": [],
+        },
+        comments: [],
+      };
       await postGossipWithoutPayment(gossipDetails, mediaFile, user);
       onSuccess();
     } catch (error) {

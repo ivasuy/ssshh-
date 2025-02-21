@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import axios from "axios";
 
 const IP_API_URL = "https://ipapi.co/json/";
 const TIMEOUT = 5000;
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const response = await axios.get(IP_API_URL, {
       timeout: TIMEOUT,

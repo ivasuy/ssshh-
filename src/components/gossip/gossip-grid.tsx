@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { GossipCard } from "@/components/gossip/gossip-card";
 import { fetchGossipsFromFirestore } from "@/service/api";
 import { motion, AnimatePresence } from "framer-motion";
+import { GossipType, UserType } from "@/types/types";
 
 interface StoryFeedProps {
   location: string;
-  user: any;
+  user: UserType;
 }
 
 const fadeInUp = {
@@ -17,7 +18,7 @@ const fadeInUp = {
 };
 
 export function GossipGrid({ location, user }: StoryFeedProps) {
-  const [stories, setStories] = useState<any[]>([]);
+  const [stories, setStories] = useState<GossipType[]>([]);
 
   useEffect(() => {
     if (!user) return;

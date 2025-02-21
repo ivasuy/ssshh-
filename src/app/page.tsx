@@ -29,7 +29,7 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <GossipGrid location={location} user={user} />
+        {user && <GossipGrid location={location} user={user} />}
       </motion.div>
       <AnimatePresence>
         {isShareDialogOpen && (

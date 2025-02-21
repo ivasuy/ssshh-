@@ -2,13 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import { motion, useAnimation } from "motion/react";
-import { Magnet, Megaphone } from "lucide-react";
+import { Megaphone } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 
 interface Btn03Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   particleCount?: number;
-  attractRadius?: number;
 }
 
 interface Particle {
@@ -20,7 +19,6 @@ interface Particle {
 export default function Btn03({
   className,
   particleCount = 12,
-  attractRadius = 50,
   ...props
 }: Btn03Props) {
   const [isAttracting, setIsAttracting] = useState(false);

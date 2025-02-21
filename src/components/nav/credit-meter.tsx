@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { motion } from "framer-motion";
+import { UserType } from "@/types/types";
 
 const maxCredits = 5000;
 
 interface CreditMeterProps {
-  user: any;
+  user: UserType;
 }
 
 const fadeInUp = {

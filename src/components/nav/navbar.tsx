@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X, Globe, Rocket, Zap } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { CreditMeter } from "./credit-meter";
 import { LocationFilter } from "./location-filter";
 import { motion, AnimatePresence } from "framer-motion";

@@ -11,18 +11,8 @@ export type GossipType = {
   userId: string;
   username: string;
   location: { city: string; state: string; country: string };
-  reactions: {
-    "😂": string[];
-    "🔥": string[];
-    "🤯": string[];
-    "💦": string[];
-  };
-  comments: {
-    userId: string;
-    username: string;
-    comment: string;
-    createdAt: Date;
-  }[];
+  reactions: ReactionType;
+  comments: CommentType[];
 };
 
 export type UserType = {
@@ -32,4 +22,18 @@ export type UserType = {
   credit: number;
   blackCard: boolean;
   gossips: GossipType[];
+};
+
+export type ReactionType = {
+  "😂": string[];
+  "🔥": string[];
+  "🤯": string[];
+  "💦": string[];
+};
+
+export type CommentType = {
+  userId: string;
+  username: string;
+  comment: string;
+  createdAt: Date;
 };

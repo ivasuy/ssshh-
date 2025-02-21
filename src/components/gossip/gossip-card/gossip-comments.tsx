@@ -23,16 +23,20 @@ export function GossipComments({
 
   const handleComment = async () => {
     if (!newComment.trim()) return;
-    try {
-      await addGossipComment(
-        gossipId,
-        user,
-        newComment,
-        setComments,
-        setNewComment
-      );
-    } catch (error) {
-      console.error("Error adding comment:", error);
+    if (user) {
+      try {
+        await addGossipComment(
+          gossipId,
+          user,
+          newComment,
+          setComments,
+          setNewComment
+        );
+      } catch (error) {
+        console.error("Error adding comment:", error);
+      }
+    } else {
+      console.error("User is not logged in");
     }
   };
 

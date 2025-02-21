@@ -1,4 +1,5 @@
 import { db } from "@/lib/firebase";
+import { CommentType, GossipType, ReactionType, UserType } from "@/types/types";
 import axios from "axios";
 import {
   addDoc,
@@ -32,12 +33,8 @@ export const fetchUserInfo = async () => {
       }
     }
   } catch (error) {
-    const err = error as any;
-    console.error("Error fetching user info:", {
-      message: err.message,
-      status: err.response?.status,
-      data: err.response?.data,
-    });
+    const err = error instanceof Error ? error.message : "Unknown error";
+    console.error("Error fetching user info:", err);
     return null;
   }
 };
@@ -84,13 +81,13 @@ export const uploadToCloudinary = async (mediaFile: File): Promise<string> => {
 //FireStore Query Logic
 export const fetchGossipsFromFirestore = (
   location: string,
-  user: any,
-  setStories: (stories: any[]) => void
+  user: UserType,
+  setStories: (stories: GossipType[]) => void
 ) => {
   if (!user) return;
 
   try {
-    let baseQuery = collection(db, "gossips");
+    const baseQuery = collection(db, "gossips");
     const currentTime = new Date();
 
     let q = query(
@@ -107,7 +104,8 @@ export const fetchGossipsFromFirestore = (
           ? "location.state"
           : "location.country";
 
-      const locationValue = user?.location[field.split(".")[1]];
+      const locationField = field.split(".")[1] as keyof typeof user.location;
+      const locationValue = user?.location[locationField];
       if (locationValue) {
         q = query(
           baseQuery,
@@ -147,7 +145,17 @@ export const fetchGossipsFromFirestore = (
             id: docSnapshot.id,
             expireAt,
             createdAt: data.createdAt.toDate(),
-            ...data,
+            title: data.title,
+            content: data.content,
+            isSensitive: data.isSensitive,
+            visibility: data.visibility,
+            imageUrl: data.imageUrl,
+            reactions: data.reactions,
+            comments: data.comments,
+            location: data.location,
+            paymentId: data.paymentId,
+            username: data.username,
+            userId: data.userId,
           });
         }
       }
@@ -160,9 +168,9 @@ export const fetchGossipsFromFirestore = (
 };
 
 export const postGossipWithoutPayment = async (
-  gossipDetails: any,
+  gossipDetails: GossipType,
   mediaFile: File | null,
-  user: any
+  user: UserType
 ) => {
   if (!user) throw new Error("User is not initialized");
 
@@ -214,8 +222,8 @@ export const postGossipWithoutPayment = async (
 export const updateGossipReaction = async (
   reaction: "😂" | "🔥" | "🤯" | "💦",
   gossipId: string,
-  user: any,
-  setReactions: (reactions: any) => void
+  user: UserType,
+  setReactions: (reactions: ReactionType) => void
 ) => {
   if (!user) throw new Error("User is not initialized");
 
@@ -266,9 +274,9 @@ export const updateGossipReaction = async (
 
 export const addGossipComment = async (
   gossipId: string,
-  user: any,
+  user: UserType,
   newComment: string,
-  setComments: (comments: any[]) => void,
+  setComments: (comments: CommentType[]) => void,
   setNewComment: (comment: string) => void
 ) => {
   if (!user || !newComment.trim()) return;
@@ -280,7 +288,7 @@ export const addGossipComment = async (
 
     const gossipData = gossipSnapshot.data();
     const hasCommented = gossipData.comments.some(
-      (comment: any) => comment.userId === user.ip
+      (comment: CommentType) => comment.userId === user.ip
     );
 
     if (hasCommented) {
