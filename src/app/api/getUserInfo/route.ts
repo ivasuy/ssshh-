@@ -1,12 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
-const IP_API_URL = "https://ipapi.co/json/";
+const IP_API_URL = "https://ipapi.co";
 const TIMEOUT = 5000;
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const response = await axios.get(IP_API_URL, {
+
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const clientIP = forwardedFor ? forwardedFor.split(',')[0] : null;
+
+    if (!clientIP)  throw new Error("Could not determine client IP");
+    
+    const response = await axios.get(`${IP_API_URL}/${clientIP}/json/`, {
       timeout: TIMEOUT,
       headers: {
         "User-Agent": "Mozilla/5.0",
