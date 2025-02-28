@@ -6,24 +6,24 @@ const TIMEOUT = 5000;
 
 export async function GET(request: NextRequest) {
   try {
-//WHILE DEPLOYING UNCOMMENT
-    // const forwardedFor = request.headers.get('x-forwarded-for');
-    // const clientIP = forwardedFor ? forwardedFor.split(',')[0] : null;
-    // if (!clientIP)  throw new Error("Could not determine client IP");
-    // const response = await axios.get(`${IP_API_URL}/${clientIP}/json/`, {
-    //   timeout: TIMEOUT,
-    //   headers: {
-    //     "User-Agent": "Mozilla/5.0",
-    //   },
-    // });
-
-//FOR TESTING & LOCAL DEVELOPMENT COMMENT WHEN PUSHING IN PRODUCTION
-    const response = await axios.get(`${IP_API_URL}/json/`, {
+    //WHILE DEPLOYING UNCOMMENT
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    const clientIP = forwardedFor ? forwardedFor.split(",")[0] : null;
+    if (!clientIP) throw new Error("Could not determine client IP");
+    const response = await axios.get(`${IP_API_URL}/${clientIP}/json/`, {
       timeout: TIMEOUT,
       headers: {
         "User-Agent": "Mozilla/5.0",
       },
     });
+
+    //FOR TESTING & LOCAL DEVELOPMENT COMMENT WHEN PUSHING IN PRODUCTION
+    // const response = await axios.get(`${IP_API_URL}/json/`, {
+    //   timeout: TIMEOUT,
+    //   headers: {
+    //     "User-Agent": "Mozilla/5.0",
+    //   },
+    // });
 
     const { ip, city, region, country } = response.data;
     if (!ip) throw new Error("Invalid response: IP address missing");

@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -57,6 +52,7 @@ export function GossipCard({ gossip }: { gossip: GossipType }) {
     const result = await reportGossip(gossip.id, user.ip);
     setMessage(result.message);
     if (result.success) setIsReported(true);
+    console.log(message);
   };
 
   return (

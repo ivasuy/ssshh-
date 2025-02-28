@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Flame, Laugh, Zap, Droplets, SkullIcon } from "lucide-react";
+import { Flame, Laugh, Droplets, SkullIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { useUser } from "@/context/UserContext";
 import { updateGossipReaction } from "@/service/api";

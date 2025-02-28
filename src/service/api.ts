@@ -9,13 +9,8 @@ import {
   doc,
   getDoc,
   getDocs,
-  onSnapshot,
-  orderBy,
-  query,
   setDoc,
-  Timestamp,
   updateDoc,
-  where,
   writeBatch,
 } from "firebase/firestore";
 
@@ -131,8 +126,8 @@ export const fetchGossips = async (
     };
 
     const gossipQuery = getGossipQuery(keyword);
-    console.log("Gossip Query:", gossipQuery);
-    console.log("countryFilter:", countryFilter);
+    // console.log("Gossip Query:", gossipQuery);
+    // console.log("countryFilter:", countryFilter);
 
     const fetchNews = async (attempt = 0): Promise<any> => {
       if (attempt >= API_KEYS.length) {
