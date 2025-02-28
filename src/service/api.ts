@@ -86,7 +86,7 @@ export const uploadToCloudinary = async (mediaFile: File): Promise<string> => {
 export const fetchGossips = async (
   location: string,
   user: UserType,
-  keyword: string,
+  keyword?: string,
   nextPage?: string
 ): Promise<{ articles: GossipType[]; nextPage: string | null }> => {
   try {
@@ -125,7 +125,7 @@ export const fetchGossips = async (
       }
     };
 
-    const gossipQuery = getGossipQuery(keyword);
+    const gossipQuery = getGossipQuery(keyword || "gossip");
     // console.log("Gossip Query:", gossipQuery);
     // console.log("countryFilter:", countryFilter);
 
@@ -145,7 +145,7 @@ export const fetchGossips = async (
         if (!response.data.results) return { articles: [], nextPage: null };
 
         const articles = response.data.results.map((news: any) => ({
-          id: `news-${news.article_id}-${Date.now()}`,
+          id: news.article_id,
           title: news.title,
           content: news.description || "No description available.",
           isSensitive: false,
@@ -165,6 +165,7 @@ export const fetchGossips = async (
           comments: [],
           isWhispr: false,
         }));
+
         return { articles, nextPage: response.data.nextPage || null };
       } catch (error: any) {
         if (error.response?.status === 429) {
