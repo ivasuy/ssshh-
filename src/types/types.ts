@@ -13,6 +13,8 @@ export type GossipType = {
   location: { city: string; state: string; country: string };
   reactions: ReactionType;
   comments: CommentType[];
+  keyword: string;
+  isWhispr: boolean;
 };
 
 export type UserType = {
@@ -27,7 +29,7 @@ export type UserType = {
 export type ReactionType = {
   "😂": string[];
   "🔥": string[];
-  "🤯": string[];
+  "💀": string[];
   "💦": string[];
 };
 

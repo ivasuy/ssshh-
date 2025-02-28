@@ -20,7 +20,7 @@ export function LocationFilter({ location, setLocation }: LocationFilterProps) {
         <SelectValue placeholder="Select location" />
       </SelectTrigger>
       <SelectContent className="bg-gray-900 border-green-500 crt">
-        <SelectItem value="local">Local Area</SelectItem>
+        {/* <SelectItem value="local">Local Area</SelectItem> */}
         <SelectItem value="city">City</SelectItem>
         <SelectItem value="state">State</SelectItem>
         <SelectItem value="country">Country</SelectItem>

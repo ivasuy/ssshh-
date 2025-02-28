@@ -43,12 +43,12 @@ export function GossipInputFields({
   return (
     <>
       <div className="space-y-2">
-        <Label htmlFor="title">Gossip Title</Label>
+        <Label htmlFor="title">Story Title</Label>
         <Input
           id="title"
           value={title}
           onChange={handleTitleChange}
-          placeholder="Give your gossip a title"
+          placeholder="Give your story a title"
           required
           className="border-dashed border-2"
         />
@@ -61,12 +61,12 @@ export function GossipInputFields({
         </p>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="content">Gossip Content</Label>
+        <Label htmlFor="content">Story Content</Label>
         <Textarea
           id="content"
           value={content}
           onChange={handleContentChange}
-          placeholder="Share your gossip here..."
+          placeholder="Share your story here..."
           className="min-h-[150px] border-dashed"
           required
         />

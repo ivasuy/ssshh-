@@ -62,7 +62,7 @@ export default function BackgroundPaths({
         <FloatingPaths position={-1} />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
+      <div className="relative z-0 container mx-auto px-4 md:px-6 text-center">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -89,7 +89,11 @@ export default function BackgroundPaths({
               </span>
             ))}
           </h1>
-
+          {/* <div className="inline-block group relative bg-gradient-to-b from-green-500 to-green-800 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <button className="px-6 py-3 text-white font-semibold bg-gray-900 rounded-2xl hover:bg-gray-800 transition duration-300">
+              Click Me
+            </button>
+          </div> */}
           <div className="inline-block group relative bg-gradient-to-b from-green-500 to-green-800 p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"></div>
         </motion.div>
       </div>

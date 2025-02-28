@@ -22,6 +22,7 @@ export function GossipForm({ open, onOpenChange }: GossipFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [visibility, setVisibility] = useState("worldwide");
+  const [keyword, setKeyword] = useState("trending news");
   const [mediaFile, setMediaFile] = useState<File | null>(null);
 
   const handleSuccess = () => {
@@ -29,6 +30,7 @@ export function GossipForm({ open, onOpenChange }: GossipFormProps) {
     setContent("");
     setIsSensitive(false);
     setVisibility("worldwide");
+    setKeyword("trending news");
     setMediaFile(null);
     onOpenChange(false);
   };
@@ -37,7 +39,7 @@ export function GossipForm({ open, onOpenChange }: GossipFormProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px] border-green-500 border-dashed crt">
         <DialogHeader>
-          <DialogTitle>Share Your Gossip</DialogTitle>
+          <DialogTitle>Share Your Story</DialogTitle>
         </DialogHeader>
         <form className="space-y-6">
           <GossipMediaUpload
@@ -55,6 +57,8 @@ export function GossipForm({ open, onOpenChange }: GossipFormProps) {
             setIsSensitive={setIsSensitive}
             visibility={visibility}
             setVisibility={setVisibility}
+            keyword={keyword}
+            setKeyword={setKeyword}
           />
 
           <GossipPayment
@@ -63,6 +67,7 @@ export function GossipForm({ open, onOpenChange }: GossipFormProps) {
             isSensitive={isSensitive}
             visibility={visibility}
             mediaFile={mediaFile}
+            keyword={keyword}
             onSuccess={handleSuccess}
           />
         </form>

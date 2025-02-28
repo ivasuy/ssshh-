@@ -6,14 +6,15 @@ import { MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
 import { addGossipComment } from "@/service/api";
+import { GossipType } from "@/types/types";
 
 interface GossipCommentsProps {
-  gossipId: string;
+  gossip: GossipType;
   initialComments: { userId: string; username: string; comment: string }[];
 }
 
 export function GossipComments({
-  gossipId,
+  gossip,
   initialComments,
 }: GossipCommentsProps) {
   const [comments, setComments] = useState(initialComments);
@@ -26,7 +27,7 @@ export function GossipComments({
     if (user) {
       try {
         await addGossipComment(
-          gossipId,
+          gossip,
           user,
           newComment,
           setComments,

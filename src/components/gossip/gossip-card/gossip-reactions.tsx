@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Flame, Laugh, Zap, Droplets } from "lucide-react";
+import { Flame, Laugh, Zap, Droplets, SkullIcon } from "lucide-react";
 import { motion } from "framer-motion";
 import { useUser } from "@/context/UserContext";
 import { updateGossipReaction } from "@/service/api";
+import { GossipType } from "@/types/types";
 
 interface GossipReactionsProps {
-  gossipId: string;
+  gossip: GossipType;
   initialReactions: {
     "😂": string[];
     "🔥": string[];
-    "🤯": string[];
+    "💀": string[];
     "💦": string[];
   };
   userId: string;
@@ -32,8 +33,8 @@ const reactionMap = {
     iconColor: "text-green-500",
     solidColor: "text-orange-600",
   },
-  "🤯": {
-    icon: Zap,
+  "💀": {
+    icon: SkullIcon,
     gradient:
       "radial-gradient(circle, rgba(250,204,21,0.15) 0%, rgba(234,179,8,0.06) 50%, rgba(202,138,4,0) 100%)",
     iconColor: "text-green-500",
@@ -49,17 +50,17 @@ const reactionMap = {
 };
 
 export function GossipReactions({
-  gossipId,
+  gossip,
   initialReactions,
   userId,
 }: GossipReactionsProps) {
   const [reactions, setReactions] = useState(initialReactions);
   const { user } = useUser();
 
-  const handleReaction = async (reaction: "😂" | "🔥" | "🤯" | "💦") => {
+  const handleReaction = async (reaction: "😂" | "🔥" | "💀" | "💦") => {
     if (!user) return;
     try {
-      await updateGossipReaction(reaction, gossipId, user, setReactions);
+      await updateGossipReaction(reaction, gossip, user, setReactions);
     } catch (error) {
       console.error("Error updating reaction:", error);
     }
@@ -100,7 +101,7 @@ export function GossipReactions({
       initial="initial"
       whileHover="hover"
     >
-      {(["😂", "🔥", "🤯", "💦"] as const).map((reaction) => {
+      {(["😂", "🔥", "💀", "💦"] as const).map((reaction) => {
         const {
           icon: Icon,
           gradient,

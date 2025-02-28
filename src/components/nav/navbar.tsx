@@ -8,11 +8,14 @@ import Btn03 from "../ui/btn03";
 import { useEffect, useState } from "react";
 import BlinkingCursor from "../ui/blinking-cursor";
 import { UserType } from "@/types/types";
+import { KeywordFilter } from "./keyword-filter";
 
 interface NavbarProps {
   user: UserType;
   location: string;
   setLocation: (value: string) => void;
+  keyword: string;
+  setKeyword: (value: string) => void;
   onShareClick: () => void;
 }
 
@@ -20,6 +23,8 @@ export function Navbar({
   user,
   location,
   setLocation,
+  keyword,
+  setKeyword,
   onShareClick,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,13 +51,13 @@ export function Navbar({
         <div className="retro-border backdrop-blur-md rounded-lg p-4 shadow-lg">
           <div className="flex items-center justify-between">
             <motion.div
-              className="flex items-center space-x-2"
+              className="flex items-center justify-center space-x-2"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <Globe className="h-6 w-6 text-cyber-green" />
               <h1 className="font-pixel text-cyber-green text-xl">
-                Anonymous Gossips
+                Whispr
                 <BlinkingCursor />
               </h1>
             </motion.div>
@@ -66,13 +71,14 @@ export function Navbar({
 
             <div className="hidden md:flex items-center space-x-4">
               <LocationFilter location={location} setLocation={setLocation} />
+              <KeywordFilter keyword={keyword} setKeyword={setKeyword} />
               {user && <CreditMeter user={user} />}
               <Btn03
                 className="bg-green-600 hover:bg-green-900 transition-colors"
                 onClick={onShareClick}
-              >
-                Share Gossip
-              </Btn03>
+                defaultText="Share Your Story"
+                hoverText="ssshh!!!"
+              ></Btn03>
             </div>
             <div className="md:hidden">
               <button onClick={() => setIsOpen(!isOpen)}>
@@ -98,14 +104,15 @@ export function Navbar({
                     {user.username}
                   </span>
                 )}
+                <KeywordFilter keyword={keyword} setKeyword={setKeyword} />
                 <LocationFilter location={location} setLocation={setLocation} />
                 {user && <CreditMeter user={user} />}
                 <Btn03
                   className="bg-green-600 hover:bg-green-900 transition-colors"
                   onClick={onShareClick}
-                >
-                  Share Gossip
-                </Btn03>
+                  defaultText="Share Your Story"
+                  hoverText="ssshh!!!"
+                ></Btn03>
               </motion.div>
             )}
           </AnimatePresence>

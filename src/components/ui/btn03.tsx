@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 
 interface Btn03Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   particleCount?: number;
+  defaultText?: string;
+  hoverText?: string;
 }
 
 interface Particle {
@@ -19,6 +21,8 @@ interface Particle {
 export default function Btn03({
   className,
   particleCount = 12,
+  defaultText,
+  hoverText,
   ...props
 }: Btn03Props) {
   const [isAttracting, setIsAttracting] = useState(false);
@@ -98,7 +102,7 @@ export default function Btn03({
             isAttracting && "scale-110"
           )}
         />
-        {isAttracting ? "ssshh !!!" : "Share Gossip"}
+        {isAttracting ? `${hoverText}` : `${defaultText}`}
       </span>
     </Button>
   );
