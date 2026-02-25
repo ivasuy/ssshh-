@@ -1,18 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import FloatingPaths from "@/components/ui/floating-paths";
-import { RadarFeed } from "@/components/radar/radar-feed";
+import { OpportunitiesList } from "@/components/opportunities/opportunities-list";
+import { OpportunitiesFilters } from "@/components/opportunities/opportunities-filters";
+import { OpportunityFilters } from "@/types/types";
 
-export default function Home() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+export default function OpportunitiesPage() {
+  const [filters, setFilters] = useState<OpportunityFilters>({});
 
   return (
     <div className="relative min-h-screen bg-[#0D0F1E] crt">
@@ -28,14 +24,15 @@ export default function Home() {
         >
           <div className="mb-8">
             <h1 className="font-pixel text-2xl text-green-400 mb-2">
-              Today&apos;s Radar
+              Contribution Opportunities
             </h1>
             <p className="font-mono text-green-500/70 text-sm">
-              Latest tech signals, releases, and changes that affect your stack
+              Good first issues, help wanted, and bounties from open source projects
             </p>
           </div>
 
-          <RadarFeed />
+          <OpportunitiesFilters filters={filters} onFiltersChange={setFilters} />
+          <OpportunitiesList filters={filters} />
         </motion.div>
       </div>
     </div>

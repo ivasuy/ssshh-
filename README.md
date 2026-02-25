@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SSH — Developer Handbook + Stack Radar
 
-## Getting Started
+**SSH** is a developer-first platform that combines a curated resource library, real-time tech signal radar, micro learning cards, contribution opportunities, and a community lounge — all in a retro CRT terminal aesthetic.
 
-First, run the development server:
+It tracks what's changing in the ecosystem (releases, changelogs, vulnerabilities), surfaces open-source contribution opportunities, and provides a glossary of concepts developers actually need to look up during work and interviews.
+
+## Modules
+
+| Module | Route | What it does |
+|--------|-------|--------------|
+| **Radar** | `/` | Real-time feed of tech signals — releases, changelogs, vulnerabilities — pulled from RSS feeds (Cloudflare, GitHub, Vercel, Node.js, React) |
+| **Library** | `/library` | Browse curated open-source repos, templates, and building blocks. Filter by language, topic, license, stars |
+| **Cards** | `/cards` | Tech glossary and interview prep cards. Definitions, use cases, "where used", and interview Q&As for concepts like SSR, Docker, JWT |
+| **Opportunities** | `/opportunities` | Good-first-issue and help-wanted GitHub issues across TypeScript, JavaScript, Python, Rust, and Go |
+| **Lounge** | `/lounge` | Community notes, insights, and hot takes. Triage reactions (Works, Used, Saved, Outdated, Breaking) and comments |
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 (App Router), React 19, TypeScript |
+| Database | MongoDB (Mongoose ODM) |
+| Auth | Firebase Google OAuth (client + admin SDK) |
+| AI | Google Vertex AI (Gemini 1.5 Flash) for card generation |
+| Styling | Tailwind CSS, Radix UI primitives, Framer Motion |
+| Scheduling | `node-cron` via Next.js instrumentation (Docker/VPS) |
+| Connectors | RSS parser, GitHub REST API (Octokit-free) |
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repo-url> && cd ssshh-
+cp .env.example .env.local   # fill in your credentials
+npm install
+npm run dev                   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+See [SETUP.md](./SETUP.md) for full environment configuration and Docker deployment.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| File | Contents |
+|------|----------|
+| [SETUP.md](./SETUP.md) | Environment variables, local dev, Docker deployment, seed scripts |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | System design, data flow, directory structure, models |
+| [SERVICES.md](./SERVICES.md) | Every implemented service, API route, connector, and cron job |
+| [TODO.md](./TODO.md) | Remaining tasks and what's been completed |
 
-## Learn More
+## Scripts
 
-To learn more about Next.js, take a look at the following resources:
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server with Turbopack |
+| `npm run build` | Production build |
+| `npm run start` | Start production server (cron jobs activate) |
+| `npm run lint` | Run ESLint |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Private project.
